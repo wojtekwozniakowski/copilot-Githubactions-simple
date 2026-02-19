@@ -1,0 +1,66 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --text: #132237;
+  --muted: #5a6b82;
+  --accent: #0077c8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at 10% 10%, #dceaff 0%, var(--bg) 35%, #eaf8f0 100%);
+  color: var(--text);
+}
+
+.container {
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+.hero h1 {
+  margin: 0.25rem 0 0.75rem;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.kicker {
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.card-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid #dae2ef;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(35, 63, 95, 0.08);
+  padding: 1rem 1.1rem;
+}
+
+.card h2 {
+  margin-top: 0.2rem;
+}
+
+.card ul {
+  padding-left: 1.1rem;
+}
+
+#healthStatus {
+  font-weight: 600;
+  color: #156b2f;
+}

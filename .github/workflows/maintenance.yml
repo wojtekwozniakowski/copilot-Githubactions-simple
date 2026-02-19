@@ -1,0 +1,36 @@
+name: Maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-health:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup project
+        uses: ./.github/actions/setup-node-project
+        with:
+          node-version: 22
+
+      - name: Dependency status
+        run: |
+          npm outdated || true
+          npm audit --audit-level=moderate || true
+
+      - name: Write summary
+        run: |
+          {
+            echo "## Weekly Maintenance"
+            echo "- Checked outdated dependencies"
+            echo "- Ran npm audit (moderate+)"
+            echo "- Trigger: ${{ github.event_name }}"
+          } >> "$GITHUB_STEP_SUMMARY"

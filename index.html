@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Actions PoC</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="hero">
+        <p class="kicker">CI/CD Proof of Concept</p>
+        <h1>GitHub Actions Deployment Dashboard</h1>
+        <p>
+          This tiny app is deployed by GitHub Actions. Every deployment embeds commit SHA, workflow
+          run number, and build time.
+        </p>
+      </section>
+
+      <section class="card-grid">
+        <article class="card">
+          <h2>Build Metadata</h2>
+          <ul>
+            <li><strong>Commit:</strong> <span id="commitSha">loading...</span></li>
+            <li><strong>Run:</strong> <span id="runNumber">loading...</span></li>
+            <li><strong>Built:</strong> <span id="buildTime">loading...</span></li>
+            <li><strong>Environment:</strong> <span id="environment">loading...</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Health Check</h2>
+          <p id="healthStatus">Validating browser runtime...</p>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
