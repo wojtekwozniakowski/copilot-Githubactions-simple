@@ -49,6 +49,7 @@ concurrency:
 - **`if:` conditions**: Run steps/jobs only when conditions are met
 
 Examples:
+
 - Upload artifacts only from **Node 22** (not 20): `if: matrix.node-version == 22`
 - Run dependency review **only on PRs**: `if: github.event_name == 'pull_request'`
 - Run job **only after success**: `if: always()`
@@ -85,6 +86,7 @@ Store build outputs for later use or download:
 ```
 
 **Use cases:**
+
 - Download build in different jobs (CI → Release)
 - Download for manual testing/debugging
 - Automatic cleanup after 90 days (configurable)
@@ -103,6 +105,7 @@ deploy:
 ```
 
 **Features:**
+
 - **Required reviewers**: Manual approval before deployment
 - **Deployment branches**: Only deploy from specific branches
 - **Secret masking**: Separate secrets per environment
@@ -137,7 +140,7 @@ Speeds up workflows by caching npm packages:
   uses: actions/setup-node@v4
   with:
     node-version: 22
-    cache: npm  # ← Automatic caching
+    cache: npm # ← Automatic caching
 ```
 
 **Benefit:** 10-30s saved per run by skipping npm install
@@ -215,6 +218,7 @@ Publish static site using native GitHub Pages workflow:
 ```
 
 **Features:**
+
 - Zero configuration (GitHub handles it)
 - Environment-based approval gates
 - Automatic workflow cancellation for superseded runs
@@ -252,6 +256,7 @@ Auto-generate releases with notes and artifacts:
 ```
 
 **Features:**
+
 - Auto-generated changelog from commits
 - Attach binaries/archives
 - Set as draft or pre-release
@@ -303,7 +308,7 @@ Run tasks on a schedule (useful for health checks, dependency updates, nightly b
 
 ```yaml
 schedule:
-  - cron: '0 8 * * 1'  # Every Monday 8 AM UTC
+  - cron: '0 8 * * 1' # Every Monday 8 AM UTC
 ```
 
 **Files:** `maintenance.yml`, `codeql.yml`
@@ -394,7 +399,7 @@ Use environments to require manual approval before production deploys:
 ```yaml
 deploy:
   needs: build
-  environment: production  # Requires approval in Settings → Environments
+  environment: production # Requires approval in Settings → Environments
   runs-on: ubuntu-latest
 ```
 

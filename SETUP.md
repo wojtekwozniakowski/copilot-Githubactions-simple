@@ -25,7 +25,7 @@ npm run preview       # preview production build
 ## Prerequisites
 
 - GitHub repository access (own or organization)
-- Node.js 20+ 
+- Node.js 20+
 - Basic familiarity with GitHub repositories and Actions
 
 ## Step 1: Repository Configuration
@@ -133,6 +133,7 @@ git push origin v0.2.0
 ```
 
 The `release.yml` workflow:
+
 - Builds the app with `DEPLOY_ENV=release`
 - Creates a tarball (`webapp-v0.2.0.tar.gz`) + SHA256 checksums
 - Publishes a GitHub Release with auto-generated release notes
@@ -161,6 +162,7 @@ The `maintenance.yml` workflow runs every Monday at 8 AM UTC:
 ### CodeQL Security Analysis
 
 The `codeql.yml` workflow runs:
+
 - On push to `main`
 - On all PRs
 - Weekly (Tuesday 3:30 AM UTC)
@@ -176,7 +178,7 @@ Edit `.github/workflows/ci.yml`:
 ```yaml
 strategy:
   matrix:
-    node-version: [18, 20, 22]  # Add/remove versions
+    node-version: [18, 20, 22] # Add/remove versions
 ```
 
 ### Disable Container Image Publishing
@@ -244,13 +246,13 @@ npm run build
 
 ## Key Workflows Explained
 
-| Workflow | Trigger | Purpose | Output |
-|----------|---------|---------|--------|
-| `ci.yml` | Push, PR, manual | Code quality & security | Artifacts (dist, coverage) |
-| `deploy-pages.yml` | Push to main, manual | GitHub Pages deployment | Live website |
-| `release.yml` | Tag or manual | Release bundle + Docker | GitHub Release + GHCR image |
-| `maintenance.yml` | Weekly cron, manual | Dependency health check | Step summary report |
-| `codeql.yml` | Push/PR to main, weekly | Security code analysis | Security alerts |
+| Workflow           | Trigger                 | Purpose                 | Output                      |
+| ------------------ | ----------------------- | ----------------------- | --------------------------- |
+| `ci.yml`           | Push, PR, manual        | Code quality & security | Artifacts (dist, coverage)  |
+| `deploy-pages.yml` | Push to main, manual    | GitHub Pages deployment | Live website                |
+| `release.yml`      | Tag or manual           | Release bundle + Docker | GitHub Release + GHCR image |
+| `maintenance.yml`  | Weekly cron, manual     | Dependency health check | Step summary report         |
+| `codeql.yml`       | Push/PR to main, weekly | Security code analysis  | Security alerts             |
 
 ## Next Steps
 
