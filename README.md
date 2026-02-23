@@ -31,16 +31,16 @@ Open `http://localhost:5173` in your browser.
 
 ## Available Scripts
 
-| Script | What it does |
-|---|---|
-| `npm run dev` | Start Vite dev server with hot reload |
-| `npm run build` | Production build → `dist/` |
-| `npm run preview` | Serve the production build locally |
+| Script                   | What it does                                                     |
+| ------------------------ | ---------------------------------------------------------------- |
+| `npm run dev`            | Start Vite dev server with hot reload                            |
+| `npm run build`          | Production build → `dist/`                                       |
+| `npm run preview`        | Serve the production build locally                               |
 | `npm run build:metadata` | Inject build metadata (commit SHA, run number, env) into the app |
-| `npm run lint` | Run ESLint across all source files |
-| `npm run format` | Auto-format all files with Prettier |
-| `npm run format:check` | Check formatting without making changes (used in CI) |
-| `npm run test` | Run tests with Vitest and generate coverage report |
+| `npm run lint`           | Run ESLint across all source files                               |
+| `npm run format`         | Auto-format all files with Prettier                              |
+| `npm run format:check`   | Check formatting without making changes (used in CI)             |
+| `npm run test`           | Run tests with Vitest and generate coverage report               |
 
 To do a full local production build:
 
@@ -86,24 +86,24 @@ npm run preview
 
 ## Workflows at a Glance
 
-| Workflow | Trigger | What it does | Output |
-|---|---|---|---|
-| `ci.yml` | Push, PR, manual | Lint, format check, test (Node 20 + 22), build, security audit | Artifacts: `dist`, `coverage` |
-| `deploy-pages.yml` | Push to `main`, manual | Build and deploy to GitHub Pages | Live site update |
-| `release.yml` | Tag `v*.*.*`, manual | Build, create GitHub Release with tarball + checksum, push Docker image | GitHub Release, GHCR image |
-| `maintenance.yml` | Weekly (Mon 8 AM UTC), manual | `npm outdated` + `npm audit` health check | Step summary report |
-| `codeql.yml` | Push/PR to `main`, weekly | Static security analysis | Security tab findings |
+| Workflow           | Trigger                       | What it does                                                            | Output                        |
+| ------------------ | ----------------------------- | ----------------------------------------------------------------------- | ----------------------------- |
+| `ci.yml`           | Push, PR, manual              | Lint, format check, test (Node 20 + 22), build, security audit          | Artifacts: `dist`, `coverage` |
+| `deploy-pages.yml` | Push to `main`, manual        | Build and deploy to GitHub Pages                                        | Live site update              |
+| `release.yml`      | Tag `v*.*.*`, manual          | Build, create GitHub Release with tarball + checksum, push Docker image | GitHub Release, GHCR image    |
+| `maintenance.yml`  | Weekly (Mon 8 AM UTC), manual | `npm outdated` + `npm audit` health check                               | Step summary report           |
+| `codeql.yml`       | Push/PR to `main`, weekly     | Static security analysis                                                | Security tab findings         |
 
 ---
 
 ## Key Files
 
-| File | Purpose |
-|---|---|
-| `.github/actions/setup-node-project/action.yml` | Composite action — all workflows use this to set up Node and install deps |
-| `scripts/generate-build-metadata.mjs` | Injects `COMMIT_SHA`, `RUN_NUMBER`, `DEPLOY_ENV` into the app at build time |
-| `src/health.js` | Runtime check that `fetch` and `navigator` are available |
-| `src/generated-build-info.js` | Auto-generated — shows which commit and pipeline produced this build |
+| File                                            | Purpose                                                                     |
+| ----------------------------------------------- | --------------------------------------------------------------------------- |
+| `.github/actions/setup-node-project/action.yml` | Composite action — all workflows use this to set up Node and install deps   |
+| `scripts/generate-build-metadata.mjs`           | Injects `COMMIT_SHA`, `RUN_NUMBER`, `DEPLOY_ENV` into the app at build time |
+| `src/health.js`                                 | Runtime check that `fetch` and `navigator` are available                    |
+| `src/generated-build-info.js`                   | Auto-generated — shows which commit and pipeline produced this build        |
 
 ---
 

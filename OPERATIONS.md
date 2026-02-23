@@ -70,6 +70,7 @@ Two workflows run in parallel when a commit lands on `main`.
 Runs independently from CI, so a Pages deploy does not wait for CI to pass. If you want Pages to wait for CI, add `needs: [quality]` referencing the CI workflow — but that requires a different workflow structure (reusable workflows).
 
 Steps:
+
 1. **Concurrency guard** — only one Pages deployment runs at a time; the previous one is cancelled.
 2. Checkout code
 3. `actions/configure-pages` — reads the repo's Pages config and sets `base_path`
@@ -119,6 +120,7 @@ This rebuilds and redeploys from the current state of `main`.
 ## Creating a Release
 
 Releases are for versioned snapshots. Each release produces:
+
 - A GitHub Release page with auto-generated notes
 - A downloadable tarball (`webapp-v<tag>.tar.gz`) with SHA256 checksum
 - A Docker image pushed to GHCR
@@ -131,6 +133,7 @@ git push origin v1.2.0
 ```
 
 `release.yml` triggers automatically. The job:
+
 1. Resolves the tag name
 2. Runs `build:metadata` with `DEPLOY_ENV=release`
 3. Builds the app
@@ -203,13 +206,13 @@ GitHub Releases cannot be un-published automatically by a workflow. To remove or
 
 All workflows support `workflow_dispatch` (manual trigger).
 
-| Workflow | Where to find it | Inputs |
-|---|---|---|
-| `ci.yml` | Actions → CI Pipeline | none |
-| `deploy-pages.yml` | Actions → Deploy to GitHub Pages | none |
-| `release.yml` | Actions → Release | `tag` (string), `publish_container` (boolean) |
-| `maintenance.yml` | Actions → Maintenance | none |
-| `codeql.yml` | Actions → CodeQL | none |
+| Workflow           | Where to find it                 | Inputs                                        |
+| ------------------ | -------------------------------- | --------------------------------------------- |
+| `ci.yml`           | Actions → CI Pipeline            | none                                          |
+| `deploy-pages.yml` | Actions → Deploy to GitHub Pages | none                                          |
+| `release.yml`      | Actions → Release                | `tag` (string), `publish_container` (boolean) |
+| `maintenance.yml`  | Actions → Maintenance            | none                                          |
+| `codeql.yml`       | Actions → CodeQL                 | none                                          |
 
 To run: **Actions → select workflow → Run workflow → fill inputs → Run workflow**.
 
@@ -219,12 +222,12 @@ To run: **Actions → select workflow → Run workflow → fill inputs → Run w
 
 Every build injects four values into the app at build time via `scripts/generate-build-metadata.mjs`:
 
-| Variable | Source | Example value |
-|---|---|---|
-| `commitSha` | `COMMIT_SHA` env var → `GITHUB_SHA` | `a3f8c21` |
-| `runNumber` | `RUN_NUMBER` env var → `GITHUB_RUN_NUMBER` | `42` |
-| `buildTime` | Current ISO timestamp at build time | `2025-06-01T10:30:00.000Z` |
-| `environment` | `DEPLOY_ENV` env var | `production`, `ci`, `release`, `development` |
+| Variable      | Source                                     | Example value                                |
+| ------------- | ------------------------------------------ | -------------------------------------------- |
+| `commitSha`   | `COMMIT_SHA` env var → `GITHUB_SHA`        | `a3f8c21`                                    |
+| `runNumber`   | `RUN_NUMBER` env var → `GITHUB_RUN_NUMBER` | `42`                                         |
+| `buildTime`   | Current ISO timestamp at build time        | `2025-06-01T10:30:00.000Z`                   |
+| `environment` | `DEPLOY_ENV` env var                       | `production`, `ci`, `release`, `development` |
 
 The script reads `src/build-info.template.js`, replaces the placeholders, and writes `src/generated-build-info.js`. This file is then bundled by Vite and displayed in the app's UI, so every live build is traceable back to the exact commit and run.
 
@@ -249,6 +252,7 @@ The image serves the static `dist/` folder via nginx on port 80.
 **Registry:** `ghcr.io/<owner>/github-actions-webapp-poc`
 
 **Tags applied on each release:**
+
 - `:<version>` — e.g. `v1.2.0`
 - `:latest`
 
@@ -269,12 +273,12 @@ Open `http://localhost:8080`.
 
 No custom secrets are required. The workflows use only built-in GitHub tokens and variables.
 
-| Token / Variable | Used by | Purpose |
-|---|---|---|
-| `secrets.GITHUB_TOKEN` | `release.yml`, `deploy-pages.yml` | Create releases, push to GHCR, deploy pages |
-| `GITHUB_SHA` | All workflows via `build:metadata` | Inject commit SHA into the build |
-| `GITHUB_RUN_NUMBER` | All workflows via `build:metadata` | Inject run number into the build |
-| `GITHUB_REPOSITORY` | `release.yml` | Derive GHCR image name |
+| Token / Variable       | Used by                            | Purpose                                     |
+| ---------------------- | ---------------------------------- | ------------------------------------------- |
+| `secrets.GITHUB_TOKEN` | `release.yml`, `deploy-pages.yml`  | Create releases, push to GHCR, deploy pages |
+| `GITHUB_SHA`           | All workflows via `build:metadata` | Inject commit SHA into the build            |
+| `GITHUB_RUN_NUMBER`    | All workflows via `build:metadata` | Inject run number into the build            |
+| `GITHUB_REPOSITORY`    | `release.yml`                      | Derive GHCR image name                      |
 
 **Required repository settings:**
 
